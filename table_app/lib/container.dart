@@ -11,6 +11,7 @@ class ContainerWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
     child:Container(
+      height: 200.0,
       margin: EdgeInsets.all(15.0),
       child: cardWidget,
       decoration: BoxDecoration(

@@ -13,18 +13,13 @@ Widget generateTable() {
     itemBuilder: (context, index) {
       int current = lowerLimit! + index;
       return ListTile(
-        title: Container(
-          margin: EdgeInsets.all(10),
-          child: Text(
-            '$number x $current = ${number! * current}',
-            style: kTitleStyleS3,
-          ),
+        title: Text(
+          '$number x $current = ${number! * current}',
+          style: kTitleStyleS3,
         ),
-        SizedBox(10)
       );
     },
   );
 }
-
 
 }

@@ -33,42 +33,7 @@ class _InputPageState extends State<InputPage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
-              child: Row(children: [
-                Expanded(
-                  child: ContainerWidget(
-                    onPressed: () {
-                      setState(() {
-                        selectGender = Gender.male;
-                      });
-                    },
-                    colors: selectGender == Gender.male
-                        ? activeColor
-                        : deActiveColor,
-                    cardWidget: IconText(
-                      icondata: FontAwesomeIcons.male,
-                      lable: 'Male',
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: ContainerWidget(
-                    onPressed: () {
-                      setState(() {
-                        selectGender = Gender.female;
-                      });
-                    },
-                    colors: selectGender == Gender.female
-                        ? activeColor
-                        : deActiveColor,
-                    cardWidget: IconText(
-                      icondata: FontAwesomeIcons.female,
-                      lable: 'Female',
-                    ),
-                  ),
-                ),
-              ]),
-            ),
+            
             Expanded(
               child: ContainerWidget(
                 colors: Color(0xFF1D1E33),
@@ -190,7 +155,7 @@ class _InputPageState extends State<InputPage> {
               child: Container(
                 child: Center(
                   child: Text(
-                    'Calculate',
+                    'Generate',
                     style: labelStyle3,
                   ),
                 ),
