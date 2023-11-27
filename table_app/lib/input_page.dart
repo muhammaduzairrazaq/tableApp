@@ -19,16 +19,16 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender? selectGender;
-  int sliderHeight = 180;
-  int sliderWeight = 60;
-  int sliderAge = 20;
+  int sliderTable = 1;
+  int sliderLowerLimit = 1;
+  int sliderUpperLimit = 10;
 
 
 
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('BMI CALCULATOR'),
+          title: Text('Table App'),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,28 +76,24 @@ class _InputPageState extends State<InputPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Height',
+                      'Select Number',
                       style: labelStyle,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(sliderHeight.toString(), style: labelStyle2),
-                        Text(
-                          'cm',
-                          style: labelStyle,
-                        ),
+                        Text(sliderTable.toString(), style: labelStyle2),
                       ],
                     ),
                     Slider(
-                        value: sliderHeight.toDouble(),
-                        min: 120.0,
-                        max: 220.0,
+                        value: sliderTable.toDouble(),
+                        min: 1.0,
+                        max: 10.0,
                         activeColor: Color(0xFFEB1555),
                         inactiveColor: Color(0xFF8D8E98),
                         onChanged: (double newValue) {
                           setState(() {
-                            sliderHeight = newValue.round();
+                            sliderTable = newValue.round();
                           });
                         })
                   ],
@@ -113,11 +109,11 @@ class _InputPageState extends State<InputPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Weight',
+                              'Lower Limit',
                               style: labelStyle,
                             ),
                             Text(
-                              sliderWeight.toString(),
+                              sliderLowerLimit.toString(),
                               style: labelStyle2,
                             ),
                             Row(
@@ -127,7 +123,7 @@ class _InputPageState extends State<InputPage> {
                                     iconData: FontAwesomeIcons.minus,
                                     onPress: () {
                                       setState(() {
-                                        sliderWeight--;
+                                        sliderLowerLimit--;
                                       });
                                     }),
                                 SizedBox(
@@ -137,7 +133,7 @@ class _InputPageState extends State<InputPage> {
                                     iconData: FontAwesomeIcons.plus,
                                     onPress: () {
                                       setState(() {
-                                        sliderWeight++;
+                                        sliderLowerLimit++;
                                       });
                                     })
                               ],
@@ -151,11 +147,11 @@ class _InputPageState extends State<InputPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Age',
+                            'Upper Limit',
                             style: labelStyle,
                           ),
                           Text(
-                            sliderAge.toString(),
+                            sliderUpperLimit.toString(),
                             style: labelStyle2,
                           ),
                           Row(
@@ -165,7 +161,7 @@ class _InputPageState extends State<InputPage> {
                                   iconData: FontAwesomeIcons.minus,
                                   onPress: () {
                                     setState(() {
-                                      sliderAge--;
+                                      sliderUpperLimit--;
                                     });
                                   }),
                               SizedBox(
@@ -175,7 +171,7 @@ class _InputPageState extends State<InputPage> {
                                   iconData: FontAwesomeIcons.plus,
                                   onPress: () {
                                     setState(() {
-                                      sliderAge++;
+                                      sliderUpperLimit++;
                                     });
                                   })
                             ],
@@ -187,9 +183,9 @@ class _InputPageState extends State<InputPage> {
             ),
             GestureDetector(
               onTap: () {
-                CalculatorBrain clac = CalculatorBrain(height: sliderHeight, weight: sliderWeight);
+                CalculatorBrain clac = CalculatorBrain(number: sliderTable, lowerLimit: sliderLowerLimit, upperLimit: sliderUpperLimit);
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ResultScreen(bmiResult: clac.CalculateBMI(), resultText: clac.getResult(),interpretation: clac.getInterpretation(),)));
+                    MaterialPageRoute(builder: (context) => ResultScreen(numberTable: clac.generateTable(), number: sliderTable,)));
               },
               child: Container(
                 child: Center(

@@ -13,12 +13,12 @@ const activeColor = Color(0xFF1D1E33);
 const deActiveColor = Color(0xFF111328);
 
 const kTitleStyleS2 = TextStyle(
-  fontSize: 50.0,
+  fontSize: 30.0,
   fontWeight: FontWeight.bold,
 );
 
 const kTitleStyleS3 = TextStyle(
-  fontSize: 20.0,
+  fontSize: 22.0,
   fontWeight: FontWeight.bold,
   color: Color.fromARGB(255, 76, 175, 145),
 );
