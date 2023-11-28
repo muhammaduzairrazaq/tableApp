@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'scoreScreen.dart';
-import 'questionGenerator.dart';
+import 'truefalseGenerator.dart';
 
-class QuestionsScreen extends StatefulWidget {
+class TruefalseScreen extends StatefulWidget {
 
   @override
-  _QuestionsScreenState createState() => _QuestionsScreenState();
+  _TruefalseScreenState createState() => _TruefalseScreenState();
 }
 
-class _QuestionsScreenState extends State<QuestionsScreen> {
+class _TruefalseScreenState extends State<TruefalseScreen> {
   int _questionIndex = 0;
   int _realquestion = 1;
   int _correctAnswers = 0;
   bool _answered = false;
 
-Questions ques = Questions();
+  TruefalseQuestions tfques = TruefalseQuestions();
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ Questions ques = Questions();
   }
 
   void _nextQuestion() {
-    if (_questionIndex < ques.getQuestionCount() - 1) {
+    if (_questionIndex < tfques.getQuestionCount() - 1) {
       setState(() {
         _questionIndex++;
         _realquestion++;
@@ -50,7 +50,7 @@ Questions ques = Questions();
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic>? question = ques.getQuestion(_questionIndex);
+    Map<String, dynamic>? question = tfques.getQuestion(_questionIndex);
 
     return Scaffold(
       body: Container(
@@ -61,7 +61,7 @@ Questions ques = Questions();
               SizedBox(height: 20),
               Container(
                 width: 350.0,
-                height: 500,
+                height: 380,
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(255, 255, 255, 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -89,7 +89,7 @@ Questions ques = Questions();
                       ),
                     ),
                     ..._buildOptions(question?['choices']),
-                    SizedBox(height: 30),
+                    SizedBox(height: 50),
                     ElevatedButton(
                       onPressed:
                           _answered ? () => _nextQuestion() : null,
@@ -118,7 +118,7 @@ Questions ques = Questions();
     List<Widget> optionWidgets = [];
     for (int i = 0; i < choices.length; i++) {
       final bool isCorrect =
-          (choices[i] == ques.getCorrectAnswer(_questionIndex));
+          (choices[i] == tfques.getCorrectAnswer(_questionIndex));
       optionWidgets.add(
         GestureDetector(
           onTap: () {

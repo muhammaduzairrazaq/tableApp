@@ -2,12 +2,19 @@ import 'package:table_app/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:table_app/input_page.dart';
 import 'package:table_app/questionScreen.dart';
+import 'package:table_app/truefalseScreen.dart';
 import 'iconText.dart';
 import 'container.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'questionGenerator.dart';
+import 'truefalseGenerator.dart';
 import 'questionScreen.dart';
 import 'result.dart';
 import 'calculator.dart';
+
+Questions ques = Questions();
+TruefalseQuestions tfques = TruefalseQuestions();
+
 
 enum Gender {
   male,
@@ -43,6 +50,7 @@ class _QuizHomePageState extends State<QuizHomePage> {
                       setState(() {
                         selectGender = Gender.male;
                       });
+                      ques.generateQuestions();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -65,10 +73,11 @@ class _QuizHomePageState extends State<QuizHomePage> {
                       setState(() {
                         selectGender = Gender.female;
                       });
+                      tfques.generateQuestions();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => QuestionsScreen(),
+                          builder: (context) => TruefalseScreen(),
                         ),
                       );
                     },

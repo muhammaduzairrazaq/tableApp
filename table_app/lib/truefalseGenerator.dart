@@ -5,14 +5,14 @@ int upperLimit = 10;
 
 int limit = 1;
 
-class Questions {
-  static final Questions _instance = Questions._internal();
+class TruefalseQuestions {
+  static final TruefalseQuestions _instance = TruefalseQuestions._internal();
 
-  factory Questions() {
+  factory TruefalseQuestions() {
     return _instance;
   }
   
-  Questions._internal();
+  TruefalseQuestions._internal();
 
   final List<Map<String, dynamic>> _questions = [];
 
@@ -22,25 +22,34 @@ class Questions {
     numbers.shuffle();
 
     for (int i = 0; i < totalQuestions; i++) {
+
       if (i >= numbers.length) {
         limit = numbers[i - numbers.length];
       } else {
         limit = numbers[i];
       }
 
-      List<String> choices = [];
-      for (int i = 0; i < 4; i++) {
-        choices.add('${tableNumber * (limit + i)}');
-      }
-      choices.shuffle();
+      String flag = 'True';
+      List<int> rand = [1,0,2];
+      rand.shuffle();
 
+      int qa = tableNumber*limit;
+      if((rand[0])==0) {
+        qa *= 2;
+      }
+
+      if(qa!= tableNumber*limit) {
+        flag='False';
+      }
+      
       Map<String, dynamic> newQuestion = {
-        'question': 'What is $tableNumber * $limit ?',
-        'choices': choices,
-        'correctAnswer': '${tableNumber * limit}',
+        'question': '$tableNumber * $limit is $qa ?',
+        'choices': ['True', 'False'],
+        'correctAnswer': flag,
       };
 
       _questions.add(newQuestion);
+
     }
   }
 
