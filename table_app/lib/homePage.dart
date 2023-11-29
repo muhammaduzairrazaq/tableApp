@@ -1,13 +1,14 @@
 import 'package:table_app/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:table_app/input_page.dart';
+import 'package:table_app/savedTable.dart';
 import 'iconText.dart';
 import 'container.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'quizHomePage.dart';
 import 'result.dart';
 import 'calculator.dart';
-
+import 'savedTable.dart';
 
 enum Gender {
   male,
@@ -31,6 +32,28 @@ class _HomePageState extends State<HomePage> {
           title: Text('Table App'),
         ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Expanded(
+            child: Row(children: [
+              Expanded(
+                child: ContainerWidget(
+                  onPressed: () {
+                    setState(() {
+                      selectGender = Gender.male;
+                    });
+                    Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SavedTable()));
+                  },
+                  colors:
+                      selectGender == Gender.male ? activeColor : deActiveColor,
+                  cardWidget: IconText(
+                    icondata: FontAwesomeIcons.save,
+                    lable: 'Saved Table',
+                  ),
+                ),
+              ),
+            ]),
+          ),
+         
           Expanded(
             child: Row(children: [
               Expanded(

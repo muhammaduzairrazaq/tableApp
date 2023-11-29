@@ -1,10 +1,18 @@
 import 'package:table_app/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:table_app/truefalseGenerator.dart';
 import 'iconText.dart';
 import 'container.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'result.dart';
 import 'calculator.dart';
+import 'mathTableRepository.dart';
+import 'mathTablesDatabase.dart';
+import 'package:flutter/material.dart' hide VoidCallback;
+import 'dart:ui' as ui;
+
+ MathTableRepository repository = MathTableRepository();
+
 
 
 enum Gender {
@@ -12,23 +20,84 @@ enum Gender {
   female,
 }
 
+
+
+// ignore: must_be_immutable
 class InputPage extends StatefulWidget {
   @override
-  _InputPageState createState() => _InputPageState();
+  InputPageState createState() => InputPageState();
+
+  int slidertable = 0;
+  int sliderlowerlimit = 0;
+  int sliderupperlimit = 0;
+  int tableid=0;
+  bool editingg = false;
+
+  InputPage({int tablenumber=1, int lowerlimit=1, int upperlimit=10, bool edit = false, int id=1}) {
+    this.slidertable = tablenumber;
+    this.sliderlowerlimit = lowerlimit;
+    this.sliderupperlimit = upperlimit;
+    this.tableid = id;
+    this.editingg = edit;
+  }
 }
 
-class _InputPageState extends State<InputPage> {
+class InputPageState extends State<InputPage> {
+
+
   Gender? selectGender;
-  int sliderTable = 1;
-  int sliderLowerLimit = 1;
-  int sliderUpperLimit = 10;
+  int sliderTable=0;
+  int sliderLowerLimit=0 ;
+  int sliderUpperLimit=0 ;
+  int tableId=0;
+  bool editing = false;
+
+  String buttonName = 'Generate';
+
+  void initState(){
+    super.initState();
+   sliderTable =  widget.slidertable ;
+   sliderLowerLimit = widget.sliderlowerlimit;
+   sliderUpperLimit = widget.sliderupperlimit;
+   editing = widget.editingg;
+   tableId = widget.tableid;
+
+   if (editing) {
+    buttonName = 'Edit';
+   }
+  }
+
+
+  void save_to_database() async {
+  MathTable newMathTable = MathTable(
+    id: 1,
+    tableNumber: sliderTable,
+    lowerLimit: sliderLowerLimit,
+    upperLimit: sliderUpperLimit,
+  );
+  await repository.addMathTable(newMathTable);
+  }
+
+  void update_to_database() async {
+    MathTable? mathTableById = await repository.getMathTableById(tableId);
+
+  if (mathTableById != null) {
+
+    mathTableById.tableNumber = sliderTable;
+    mathTableById.tableNumber = sliderLowerLimit;
+    mathTableById.tableNumber = sliderUpperLimit;
+
+    await repository.updateMathTable(mathTableById);
+  }
+
+  }
 
 
 
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Table App'),
+          title: Text('Generate Table'),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -148,14 +217,21 @@ class _InputPageState extends State<InputPage> {
             ),
             GestureDetector(
               onTap: () {
+                if(editing) {
+                  update_to_database();
+                }
+                else {
+                save_to_database();
                 CalculatorBrain clac = CalculatorBrain(number: sliderTable, lowerLimit: sliderLowerLimit, upperLimit: sliderUpperLimit);
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ResultScreen(numberTable: clac.generateTable(), number: sliderTable,)));
+                }
               },
               child: Container(
                 child: Center(
                   child: Text(
-                    'Generate',
+                    
+                    '$buttonName',
                     style: labelStyle3,
                   ),
                 ),
@@ -170,10 +246,11 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
+
 class RoundIcon extends StatelessWidget {
   RoundIcon({required this.iconData, required this.onPress});
   final IconData iconData;
-  final VoidCallback? onPress;
+  final ui.VoidCallback? onPress;
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(

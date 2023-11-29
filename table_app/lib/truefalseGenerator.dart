@@ -41,9 +41,9 @@ class TruefalseQuestions {
       if(qa!= tableNumber*limit) {
         flag='False';
       }
-      
+
       Map<String, dynamic> newQuestion = {
-        'question': '$tableNumber * $limit is $qa ?',
+        'question': 'Is $tableNumber * $limit equals to $qa ?',
         'choices': ['True', 'False'],
         'correctAnswer': flag,
       };
