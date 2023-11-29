@@ -17,6 +17,7 @@ class MathTableRepository {
     return mathTables;
   }
 
+
   Future<MathTable?> getMathTableById(int id) async {
     await _database.open();
     MathTable? mathTable = await _database.getMathTableById(id);
