@@ -1,7 +1,6 @@
 import 'package:table_app/constant.dart';
 import 'package:table_app/container.dart';
 import 'package:flutter/material.dart';
-import 'input_page.dart';
 
 class ResultScreen extends StatelessWidget {
   final Widget numberTable;
@@ -35,9 +34,7 @@ class ResultScreen extends StatelessWidget {
               colors: activeColor,
               cardWidget: Column(
                 children: [
-                  Expanded(
-                    child: numberTable
-                  ),
+                  Expanded(child: numberTable),
                 ],
               ),
             ),
@@ -47,6 +44,3 @@ class ResultScreen extends StatelessWidget {
     );
   }
 }
-
-
-

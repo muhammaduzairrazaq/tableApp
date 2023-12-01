@@ -1,6 +1,5 @@
 import 'mathTablesDatabase.dart';
 
-
 class MathTableRepository {
   final MathTablesDatabase _database = MathTablesDatabase();
 
@@ -16,7 +15,6 @@ class MathTableRepository {
     await _database.close();
     return mathTables;
   }
-
 
   Future<MathTable?> getMathTableById(int id) async {
     await _database.open();

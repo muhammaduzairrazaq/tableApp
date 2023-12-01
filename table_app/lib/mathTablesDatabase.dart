@@ -6,13 +6,10 @@ class MathTablesDatabase {
   String _tableName = 'math_tables';
 
   Future<void> open() async {
-
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'math_tables.db');
 
-
     _database = await openDatabase(path, version: 1, onCreate: (db, version) {
-     
       db.execute('''
         CREATE TABLE math_tables (
           id INTEGER PRIMARY KEY,
@@ -36,12 +33,14 @@ class MathTablesDatabase {
   }
 
   Future<List<MathTable>> getAllMathTables() async {
-    List<Map<String, dynamic>> result = await _database.rawQuery('SELECT * FROM math_tables');
+    List<Map<String, dynamic>> result =
+        await _database.rawQuery('SELECT * FROM math_tables');
     return result.map((map) => MathTable.fromMap(map)).toList();
   }
 
   Future<MathTable?> getMathTableById(int id) async {
-    List<Map<String, dynamic>> result = await _database.rawQuery('SELECT * FROM math_tables WHERE id = ?', [id]);
+    List<Map<String, dynamic>> result = await _database
+        .rawQuery('SELECT * FROM math_tables WHERE id = ?', [id]);
     if (result.isNotEmpty) {
       return MathTable.fromMap(result.first);
     }
@@ -53,7 +52,12 @@ class MathTablesDatabase {
       UPDATE math_tables 
       SET table_number = ?, lower_limit = ?, upper_limit = ? 
       WHERE id = ?
-    ''', [mathTable.tableNumber, mathTable.lowerLimit, mathTable.upperLimit, mathTable.id]);
+    ''', [
+      mathTable.tableNumber,
+      mathTable.lowerLimit,
+      mathTable.upperLimit,
+      mathTable.id
+    ]);
   }
 
   Future<void> delete(int id) async {
@@ -61,9 +65,8 @@ class MathTablesDatabase {
   }
 
   Future<void> deleteAll() async {
-  await _database.rawDelete('DELETE FROM $_tableName');
-}
-
+    await _database.rawDelete('DELETE FROM $_tableName');
+  }
 }
 
 class MathTable {

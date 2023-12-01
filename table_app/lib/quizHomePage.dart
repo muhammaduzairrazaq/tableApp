@@ -1,7 +1,6 @@
 import 'package:table_app/QuizParameters.dart';
 import 'package:table_app/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:table_app/input_page.dart';
 import 'package:table_app/questionScreen.dart';
 import 'package:table_app/truefalseScreen.dart';
 import 'iconText.dart';
@@ -11,9 +10,6 @@ import 'questionGenerator.dart';
 import 'truefalseGenerator.dart';
 import 'mathTableRepository.dart';
 import 'mathTablesDatabase.dart';
-import 'questionScreen.dart';
-import 'result.dart';
-import 'calculator.dart';
 
 Questions ques = Questions();
 TruefalseQuestions tfques = TruefalseQuestions();

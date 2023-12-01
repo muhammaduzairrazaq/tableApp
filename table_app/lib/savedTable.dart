@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_app/constant.dart';
 import 'package:table_app/input_page.dart';
-import 'iconText.dart';
-import 'container.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'result.dart';
 import 'calculator.dart';
@@ -110,16 +108,24 @@ class _SavedTableState extends State<SavedTable> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                           CalculatorBrain clac = CalculatorBrain(number: item['table_name'], lowerLimit: item['lower_limit'], upperLimit: item['upper_limit']);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ResultScreen(numberTable: clac.generateTable(), number: item['table_name'],)));
+                          CalculatorBrain clac = CalculatorBrain(
+                              number: item['table_name'],
+                              lowerLimit: item['lower_limit'],
+                              upperLimit: item['upper_limit']);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ResultScreen(
+                                        numberTable: clac.generateTable(),
+                                        number: item['table_name'],
+                                      )));
                         },
                         child: Icon(
                           FontAwesomeIcons.calculator,
-                          color: Color.fromARGB(255, 76, 175, 145), 
+                          color: Color.fromARGB(255, 76, 175, 145),
                         ),
                       ),
-                      SizedBox(width: 16), 
+                      SizedBox(width: 16),
                       GestureDetector(
                         onTap: () {
                           deleteTable(item['table_id']);

@@ -7,10 +7,6 @@ import 'iconText.dart';
 import 'container.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'quizHomePage.dart';
-import 'result.dart';
-import 'calculator.dart';
-import 'savedTable.dart';
-import 'savedQuiz.dart';
 
 enum Gender {
   male,
