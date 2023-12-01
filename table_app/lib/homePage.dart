@@ -1,6 +1,7 @@
 import 'package:table_app/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:table_app/input_page.dart';
+import 'package:table_app/savedQuiz.dart';
 import 'package:table_app/savedTable.dart';
 import 'iconText.dart';
 import 'container.dart';
@@ -9,6 +10,7 @@ import 'quizHomePage.dart';
 import 'result.dart';
 import 'calculator.dart';
 import 'savedTable.dart';
+import 'savedQuiz.dart';
 
 enum Gender {
   male,
@@ -41,29 +43,7 @@ class _HomePageState extends State<HomePage> {
                       selectGender = Gender.male;
                     });
                     Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SavedTable()));
-                  },
-                  colors:
-                      selectGender == Gender.male ? activeColor : deActiveColor,
-                  cardWidget: IconText(
-                    icondata: FontAwesomeIcons.save,
-                    lable: 'Saved Table',
-                  ),
-                ),
-              ),
-            ]),
-          ),
-         
-          Expanded(
-            child: Row(children: [
-              Expanded(
-                child: ContainerWidget(
-                  onPressed: () {
-                    setState(() {
-                      selectGender = Gender.male;
-                    });
-                    Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => InputPage()));
+                        MaterialPageRoute(builder: (context) => InputPage()));
                   },
                   colors:
                       selectGender == Gender.male ? activeColor : deActiveColor,
@@ -79,8 +59,32 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       selectGender = Gender.female;
                     });
-                     Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => QuizHomePage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SavedTable()));
+                  },
+                  colors: selectGender == Gender.female
+                      ? activeColor
+                      : deActiveColor,
+                  cardWidget: IconText(
+                    icondata: FontAwesomeIcons.list,
+                    lable: 'Table List',
+                  ),
+                ),
+              ),
+            ]),
+          ),
+          Expanded(
+            child: Row(children: [
+              Expanded(
+                child: ContainerWidget(
+                  onPressed: () {
+                    setState(() {
+                      selectGender = Gender.female;
+                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => QuizHomePage()));
                   },
                   colors: selectGender == Gender.female
                       ? activeColor
@@ -88,6 +92,23 @@ class _HomePageState extends State<HomePage> {
                   cardWidget: IconText(
                     icondata: FontAwesomeIcons.penToSquare,
                     lable: 'Take Quiz',
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ContainerWidget(
+                  onPressed: () {
+                    setState(() {
+                      selectGender = Gender.male;
+                    });
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SavedQuiz()));
+                  },
+                  colors:
+                      selectGender == Gender.male ? activeColor : deActiveColor,
+                  cardWidget: IconText(
+                    icondata: FontAwesomeIcons.list,
+                    lable: 'Quiz List',
                   ),
                 ),
               ),

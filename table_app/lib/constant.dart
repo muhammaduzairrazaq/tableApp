@@ -27,3 +27,9 @@ const kTitleStyleS4 = TextStyle(
   fontSize: 18.0,
   fontWeight: FontWeight.bold,
 );
+
+const kTitleStyleS5 = TextStyle(
+  fontSize: 22.0,
+  fontWeight: FontWeight.bold,
+);
+

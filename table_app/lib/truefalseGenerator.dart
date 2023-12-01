@@ -1,7 +1,4 @@
-int totalQuestions = 7;
-int tableNumber = 2;
-int lowerLimit = 5;
-int upperLimit = 10;
+import 'package:table_app/QuizParameters.dart';
 
 int limit = 1;
 
@@ -11,18 +8,24 @@ class TruefalseQuestions {
   factory TruefalseQuestions() {
     return _instance;
   }
-  
+
   TruefalseQuestions._internal();
 
   final List<Map<String, dynamic>> _questions = [];
 
   void generateQuestions() {
+
+  int totalQuestions = QuizParameters.questionNumbers;
+  int tableNumber = QuizParameters.tableNumber;
+  int lowerLimit = QuizParameters.lowerLimit;
+  int upperLimit = QuizParameters.upperLimit;
+  _questions.clear();
+
     List<int> numbers =
         List.generate(upperLimit - lowerLimit, (index) => index + lowerLimit);
     numbers.shuffle();
 
     for (int i = 0; i < totalQuestions; i++) {
-
       if (i >= numbers.length) {
         limit = numbers[i - numbers.length];
       } else {
@@ -30,16 +33,16 @@ class TruefalseQuestions {
       }
 
       String flag = 'True';
-      List<int> rand = [1,0,2];
+      List<int> rand = [1, 0, 2];
       rand.shuffle();
 
-      int qa = tableNumber*limit;
-      if((rand[0])==0) {
+      int qa = tableNumber * limit;
+      if ((rand[0]) == 0) {
         qa *= 2;
       }
 
-      if(qa!= tableNumber*limit) {
-        flag='False';
+      if (qa != tableNumber * limit) {
+        flag = 'False';
       }
 
       Map<String, dynamic> newQuestion = {
@@ -49,7 +52,6 @@ class TruefalseQuestions {
       };
 
       _questions.add(newQuestion);
-
     }
   }
 

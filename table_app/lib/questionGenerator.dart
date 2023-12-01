@@ -1,7 +1,4 @@
-int totalQuestions = 7;
-int tableNumber = 2;
-int lowerLimit = 5;
-int upperLimit = 10;
+import 'package:table_app/QuizParameters.dart';
 
 int limit = 1;
 
@@ -11,12 +8,18 @@ class Questions {
   factory Questions() {
     return _instance;
   }
-  
+
   Questions._internal();
 
   final List<Map<String, dynamic>> _questions = [];
 
   void generateQuestions() {
+    int totalQuestions = QuizParameters.questionNumbers;
+    int tableNumber = QuizParameters.tableNumber;
+    int lowerLimit = QuizParameters.lowerLimit;
+    int upperLimit = QuizParameters.upperLimit;
+
+    _questions.clear();
     List<int> numbers =
         List.generate(upperLimit - lowerLimit, (index) => index + lowerLimit);
     numbers.shuffle();

@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:table_app/QuizParameters.dart';
 import 'scoreScreen.dart';
 import 'truefalseGenerator.dart';
+import 'quizTablesDatabase.dart';
+import 'quizTableRepository.dart';
+
+
+
+QuizTableRepository repository = QuizTableRepository();
 
 class TruefalseScreen extends StatefulWidget {
 
@@ -30,6 +37,18 @@ class _TruefalseScreenState extends State<TruefalseScreen> {
     });
   }
 
+  void save_quiz_to_database() async {
+   QuizTable newQuizTable = QuizTable(
+  id: 1,
+  tableNumber: QuizParameters.tableNumber,
+  quizType: 1,
+  questionNumbers: QuizParameters.questionNumbers,
+  marks: _correctAnswers,
+);
+
+await repository.addQuizTable(newQuizTable);
+  }
+
   void _nextQuestion() {
     if (_questionIndex < tfques.getQuestionCount() - 1) {
       setState(() {
@@ -38,6 +57,7 @@ class _TruefalseScreenState extends State<TruefalseScreen> {
         _answered = false;
       });
     } else {
+      save_quiz_to_database();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -71,7 +91,7 @@ class _TruefalseScreenState extends State<TruefalseScreen> {
                      Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        '$_realquestion/5',
+                        '$_realquestion/${QuizParameters.questionNumbers}',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,

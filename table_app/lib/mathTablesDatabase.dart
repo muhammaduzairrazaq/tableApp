@@ -6,14 +6,13 @@ class MathTablesDatabase {
   String _tableName = 'math_tables';
 
   Future<void> open() async {
-    // Get a location using getDatabasesPath
+
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'math_tables.db');
 
 
-    // Open the database
     _database = await openDatabase(path, version: 1, onCreate: (db, version) {
-      // Create the table
+     
       db.execute('''
         CREATE TABLE math_tables (
           id INTEGER PRIMARY KEY,

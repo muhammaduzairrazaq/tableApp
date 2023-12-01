@@ -33,12 +33,12 @@ class InputPage extends StatefulWidget {
   int tableid=0;
   bool editingg = false;
 
-  InputPage({int tablenumber=1, int lowerlimit=1, int upperlimit=10, bool edit = false, int id=1}) {
-    this.slidertable = tablenumber;
-    this.sliderlowerlimit = lowerlimit;
-    this.sliderupperlimit = upperlimit;
-    this.tableid = id;
-    this.editingg = edit;
+  InputPage({super.key, int tablenumber=1, int lowerlimit=1, int upperlimit=10, bool edit = false, int id=1}) {
+    slidertable = tablenumber;
+    sliderlowerlimit = lowerlimit;
+    sliderupperlimit = upperlimit;
+    tableid = id;
+    editingg = edit;
   }
 }
 
@@ -54,6 +54,7 @@ class InputPageState extends State<InputPage> {
 
   String buttonName = 'Generate';
 
+  @override
   void initState(){
     super.initState();
    sliderTable =  widget.slidertable ;
@@ -84,8 +85,8 @@ class InputPageState extends State<InputPage> {
   if (mathTableById != null) {
 
     mathTableById.tableNumber = sliderTable;
-    mathTableById.tableNumber = sliderLowerLimit;
-    mathTableById.tableNumber = sliderUpperLimit;
+    mathTableById.lowerLimit = sliderLowerLimit;
+    mathTableById.upperLimit = sliderUpperLimit;
 
     await repository.updateMathTable(mathTableById);
   }

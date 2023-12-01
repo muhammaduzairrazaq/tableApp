@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:table_app/QuizParameters.dart';
 import 'scoreScreen.dart';
 import 'questionGenerator.dart';
+import 'quizTablesDatabase.dart';
+import 'quizTableRepository.dart';
+
+QuizTableRepository repository = QuizTableRepository();
 
 class QuestionsScreen extends StatefulWidget {
-
   @override
   _QuestionsScreenState createState() => _QuestionsScreenState();
 }
@@ -14,7 +18,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   int _correctAnswers = 0;
   bool _answered = false;
 
-Questions ques = Questions();
+  Questions ques = Questions();
 
   @override
   void initState() {
@@ -30,6 +34,18 @@ Questions ques = Questions();
     });
   }
 
+  void save_quiz_to_database() async {
+    QuizTable newQuizTable = QuizTable(
+      id: 1,
+      tableNumber: QuizParameters.tableNumber,
+      quizType: 0,
+      questionNumbers: QuizParameters.questionNumbers,
+      marks: _correctAnswers,
+    );
+
+    await repository.addQuizTable(newQuizTable);
+  }
+
   void _nextQuestion() {
     if (_questionIndex < ques.getQuestionCount() - 1) {
       setState(() {
@@ -38,6 +54,7 @@ Questions ques = Questions();
         _answered = false;
       });
     } else {
+      save_quiz_to_database();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -68,10 +85,10 @@ Questions ques = Questions();
                 ),
                 child: Column(
                   children: [
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        '$_realquestion/5',
+                        '$_realquestion/${QuizParameters.questionNumbers}',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
@@ -91,8 +108,7 @@ Questions ques = Questions();
                     ..._buildOptions(question?['choices']),
                     SizedBox(height: 30),
                     ElevatedButton(
-                      onPressed:
-                          _answered ? () => _nextQuestion() : null,
+                      onPressed: _answered ? () => _nextQuestion() : null,
                       child: Text('Next Question'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFEB1555),

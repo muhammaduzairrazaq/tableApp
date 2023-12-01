@@ -14,7 +14,7 @@ Widget generateTable() {
       int current = lowerLimit! + index;
       return ListTile(
         title: Text(
-          '$number x $current = ${number! * current}',
+          '$number   x   $current  =  ${number!  *  current}',
           style: kTitleStyleS3,
         ),
       );
